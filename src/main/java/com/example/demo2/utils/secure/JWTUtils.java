@@ -56,7 +56,7 @@ public class JWTUtils implements Serializable {
                 .compact();
     }
 
-    public Boolean validateToken(String token) {
+    Boolean validateToken(String token) {
         return !isTokenExpired(token);
     }
 }

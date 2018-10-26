@@ -13,7 +13,7 @@ import java.util.Base64;
 public class PBKDF2Encoder implements PasswordEncoder {
 
     private String secret = "mysecret";
-    private Integer iteration = 256;
+    private Integer iteration = 256; //257 //33
     private Integer keylength = 256;
     private String secretKyFactory = "PBKDF2WithHmacSHA512";
 

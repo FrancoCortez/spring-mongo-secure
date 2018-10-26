@@ -24,8 +24,9 @@ public class User extends BaseEntity implements UserDetails {
 
     private String username;
     private String password;
-    private List<Role> roles;
     private Boolean enabled;
+    private List<Role> roles;
+
 
     @Override
     public boolean isAccountNonExpired() {

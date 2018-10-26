@@ -32,6 +32,14 @@ public class AuthDaoImpl extends BaseRepositoryImpl<User, String> implements Aut
      */
     @SuppressWarnings("unused")
     public Mono<User> findByUsername(String username) throws Exception {
-        return this.findByUsername(username);
+        /*final String usernam = "user";// password: user
+        User user = new User(usernam, "cBrlgyL2GI2GINuLUUwgojITuIufFycpLG4490dhGtY=", true, Arrays.asList(Role.ROLE_USER));
+        switch (username) {
+            case usernam:
+                return Mono.just(user);
+            default:
+                return Mono.empty();
+        }*/
+        return this.authRepository.findByUsername(username);
     }
 }

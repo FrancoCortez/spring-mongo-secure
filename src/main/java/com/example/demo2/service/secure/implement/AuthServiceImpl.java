@@ -1,7 +1,9 @@
 package com.example.demo2.service.secure.implement;
 
 import com.example.demo2.dao.secure.interfaces.AuthDao;
+import com.example.demo2.model.entity.secure.User;
 import com.example.demo2.model.request.secure.LoginRequestDTO;
+import com.example.demo2.model.request.secure.RegisterRequestDTO;
 import com.example.demo2.service.base.BaseServiceImpl;
 import com.example.demo2.service.secure.interfaces.AuthService;
 import com.example.demo2.utils.secure.JWTUtils;
@@ -51,6 +53,25 @@ public class AuthServiceImpl extends BaseServiceImpl implements AuthService {
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
                 }
             });
+        } catch (Exception ex) {
+            return this.errorHandler(ex);
+        }
+    }
+
+    /**
+     * @param registerRequestDTO
+     * @return
+     */
+    public Mono<ResponseEntity<?>> register(RegisterRequestDTO registerRequestDTO) {
+        try {
+            User user = User.builder()
+                    .username(registerRequestDTO.getUsername())
+                    .password(this.passwordEncoder.encode(registerRequestDTO.getPassword()))
+                    .roles(registerRequestDTO.getRoles())
+                    .build();
+            Mono<User> userMono = this.authDao.insert(user);
+            User userResult = userMono.toProcessor().block();
+            return this.okMonoHandler(userMono);
         } catch (Exception ex) {
             return this.errorHandler(ex);
         }
